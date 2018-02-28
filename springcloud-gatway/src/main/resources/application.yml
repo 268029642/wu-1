@@ -1,0 +1,33 @@
+server:
+  port: 9001
+  
+spring:
+  application: 
+    name: springcloud-gatway
+
+info:
+  app.name: springcloud-gatway
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+  
+zuul:
+  ignored-services:
+    "*"
+  routes: 
+    user-provider: /user-proxy/**
+    user-consume: /user-consume-proxy/**
+  
+eureka:
+  instance:
+    instance-id: zuul-9001
+    prefer-ip-address: true
+  client: 
+    service-url:
+      defaultZone: http://eureka:123@localhost:7001/eureka,http://eureka:123@localhost:7002
+
+security:
+  basic:
+    enabled: true
+  user: 
+    name: zuul
+    password: 123
